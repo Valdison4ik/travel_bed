@@ -11,9 +11,9 @@ class CityModel(models.Model):
                                 verbose_name=_('Страна'))
 
     class Meta:
-        db_table = 'city'
-        verbose_name = 'City'
-        verbose_name_plural = 'Cities'
+        db_table = 'cities'
+        verbose_name = _('Город')
+        verbose_name_plural = _('Города')
         ordering = ('title',)
 
     def __str__(self):

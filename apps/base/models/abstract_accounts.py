@@ -1,17 +1,11 @@
-import os
-# import django
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-# django.setup()
-from django.contrib.auth import get_user_model
 
-User = get_user_model()
-
-class CreatedAccountMixin(models.Model):
+class CreatedAccountModel(models.Model):
     created_by = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -24,9 +18,9 @@ class CreatedAccountMixin(models.Model):
         abstract = True
 
 
-class UpdatedAccountMixin(models.Model):
+class UpdatedAccountModel(models.Model):
     updated_by = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -39,9 +33,9 @@ class UpdatedAccountMixin(models.Model):
         abstract = True
 
 """
-class DeletedAccountMixin(models.Model):
+class DeletedAccountModel(models.Model):
     deleted_by = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

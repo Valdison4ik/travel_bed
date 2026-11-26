@@ -1,14 +1,14 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from apps.base.models import CreatedTimeStampMixin, HostType
+from apps.base.models import CreatedTimeStampModel, HostType
 from apps.accounts.models import AccountModel, LanguageModel
 
 
-class HostProfileModel(CreatedTimeStampMixin, models.Model):
+class HostProfileModel(CreatedTimeStampModel, models.Model):
     """ Профили зарегистрированных хозяев """
     host_name = models.CharField(unique=True, max_length=100, verbose_name=_('Имя хозяина'))
     account = models.OneToOneField(AccountModel,
-                                   on_delete=models.CASCADE,
+                                   on_delete=models.PROTECT,
                                    related_name='host_profile')
     bio = models.TextField(blank=True, verbose_name=_('О себе'), )
     spoken_languages = models.ManyToManyField(LanguageModel,
@@ -23,7 +23,7 @@ class HostProfileModel(CreatedTimeStampMixin, models.Model):
                                  )
 
     class Meta:
-        db_table = 'host_profile'
+        db_table = 'host_profiles'
         verbose_name = _('Профиль хозяина')
         verbose_name_plural = _('Профили хозяев')
         ordering = ['-created_at']
